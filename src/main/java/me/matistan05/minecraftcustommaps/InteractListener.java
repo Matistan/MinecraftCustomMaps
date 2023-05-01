@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Rotation;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ItemFrame;
@@ -47,7 +48,52 @@ public class InteractListener implements Listener {
                                         mapView.addRenderer(customMapRenderer);
                                         mapMeta.setMapView(mapView);
                                         map.setItemMeta(mapMeta);
-                                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getX() + i, location.getY() + j, location.getZ()));
+                                        switch (itemFrame.getFacing()) {
+                                            case SOUTH:
+                                                placeMap(map, new Location(e.getPlayer().getWorld(), location.getX() + i, location.getY() + j, location.getZ()), Rotation.NONE, itemFrame.getFacing());
+                                            break;
+                                            case NORTH:
+                                                placeMap(map, new Location(e.getPlayer().getWorld(), location.getX() - i, location.getY() + j, location.getZ()), Rotation.NONE, itemFrame.getFacing());
+                                            break;
+                                            case EAST:
+                                                placeMap(map, new Location(e.getPlayer().getWorld(), location.getX(), location.getY() + j, location.getZ() - i), Rotation.NONE, itemFrame.getFacing());
+                                            break;
+                                            case WEST:
+                                                placeMap(map, new Location(e.getPlayer().getWorld(), location.getX(), location.getY() + j, location.getZ() + i), Rotation.NONE, itemFrame.getFacing());
+                                            break;
+                                            case UP:
+                                                switch (e.getPlayer().getFacing()) {
+                                                    case NORTH:
+                                                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getX() + i, location.getY(), location.getZ() - j), Rotation.NONE, itemFrame.getFacing());
+                                                    break;
+                                                    case SOUTH:
+                                                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getX() - i, location.getY(), location.getZ() + j), Rotation.CLOCKWISE, itemFrame.getFacing());
+                                                    break;
+                                                    case EAST:
+                                                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getX() + j, location.getY(), location.getZ() + i), Rotation.CLOCKWISE_45, itemFrame.getFacing());
+                                                    break;
+                                                    case WEST:
+                                                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getX() - j, location.getY(), location.getZ() - i), Rotation.CLOCKWISE_135, itemFrame.getFacing());
+                                                    break;
+                                                }
+                                            break;
+                                            case DOWN:
+                                                switch (e.getPlayer().getFacing()) {
+                                                    case NORTH:
+                                                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getX() + i, location.getY(), location.getZ() + j), Rotation.NONE, itemFrame.getFacing());
+                                                    break;
+                                                    case SOUTH:
+                                                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getX() - i, location.getY(), location.getZ() - j), Rotation.CLOCKWISE, itemFrame.getFacing());
+                                                    break;
+                                                    case EAST:
+                                                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getX() - j, location.getY(), location.getZ() + i), Rotation.CLOCKWISE_135, itemFrame.getFacing());
+                                                    break;
+                                                    case WEST:
+                                                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getX() + j, location.getY(), location.getZ() - i), Rotation.CLOCKWISE_45, itemFrame.getFacing());
+                                                    break;
+                                                }
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -57,13 +103,13 @@ public class InteractListener implements Listener {
             }
         }
     }
-    public void placeMap(ItemStack map, Location location) {
+    public void placeMap(ItemStack map, Location location, Rotation rotation, BlockFace blockFace) {
         for(Entity entity : location.getWorld().getEntities()) {
             Location entityLocation = new Location(entity.getWorld(),(int)(entity.getLocation().getX()), (int)(entity.getLocation().getY()), (int)(entity.getLocation().getZ() - 1));
-            if(entityLocation.getX() == location.getX() && entityLocation.getY() == location.getY() && entityLocation.getZ() == location.getZ() && entity instanceof ItemFrame) {
+            if(entityLocation.getX() == location.getX() && entityLocation.getY() == location.getY() && entityLocation.getZ() == location.getZ() && entity instanceof ItemFrame && entity.getFacing().equals(blockFace)) {
                 ItemFrame itemFrame = (ItemFrame) entity;
-                itemFrame.setRotation(Rotation.NONE);
                 itemFrame.setItem(map);
+                itemFrame.setRotation(rotation);
                 return;
             }
         }
