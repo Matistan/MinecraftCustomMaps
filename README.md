@@ -8,7 +8,7 @@ This plugin runs on a Minecraft version 1.16+.
 
 ## Feature
 
-When you place a custom map in the item frame, it will fill all nearby item frames to place a photo with original quality. Currently it only works if item frames are facing south.
+When you place a custom map in the item frame, it will fill all nearby item frames to place a photo with original quality. Currently, it only works if item frames are facing south.
 
 ## Command
 
