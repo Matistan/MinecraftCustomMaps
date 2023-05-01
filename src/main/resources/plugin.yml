@@ -1,0 +1,7 @@
+name: MinecraftCustomMaps
+version: '${project.version}'
+main: me.matistan05.minecraftcustommaps.Main
+api-version: 1.16
+commands:
+  custommap:
+    description: custom map
