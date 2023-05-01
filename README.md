@@ -12,6 +12,6 @@ When you place a custom map in the item frame, it will fill all nearby item fram
 
 ## Command
 
-- '/custommap <URL>' - gives you a custom map
+`/custommap <URL>` - gives you a custom map
 
 ### Made by Matistan
