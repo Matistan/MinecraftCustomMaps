@@ -320,7 +320,10 @@ public class CustomMapCommand implements CommandExecutor {
                     }
                     break;
             }
-            itemMeta.setDisplayName(ChatColor.DARK_PURPLE + "Custom Map (" + (!args[1].equals("automatic") ? width + "x" + height : "automatic size") + ")");
+            itemMeta.setDisplayName(ChatColor.DARK_PURPLE + "Custom Map (" + (args[1].equals("automatic") ? "Max " : "") + width + "x" + height + ")");
+            List<String> lore = itemMeta.getLore();
+            lore.set(0, ChatColor.GRAY + (args[1].equals("automatic") ? "A maximum of " : "") + width * height + " item frame" + (width * height > 1 ? "s" : "") + " required");
+            itemMeta.setLore(lore);
             p.getInventory().getItemInMainHand().setItemMeta(itemMeta);
             p.sendMessage(ChatColor.GREEN + "Successfully changed the property of this map!");
             return true;
