@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 public class CustomMapRenderer extends MapRenderer {
     int i, j;
     BufferedImage image;
+    boolean rendered = false;
     public CustomMapRenderer(int i, int j, BufferedImage image) {
         this.i = i;
         this.j = j;
@@ -17,11 +18,14 @@ public class CustomMapRenderer extends MapRenderer {
     }
     @Override
     public void render(MapView map, MapCanvas canvas, Player player) {
-        canvas.drawImage(0, (j == Math.ceil(image.getHeight() / 128d) - 1 ? 128 -
-                ((image.getHeight() - 1) % 128) + 1 : 0), image.getSubimage(
-                i * 128, (j == Math.ceil(image.getHeight() / 128d) - 1 ? 0 :
-                        image.getHeight() - 128 - j * 128), (i == Math.ceil(image.getWidth() / 128d) - 1 ?
-                        ((image.getWidth() - 1) % 128) + 1 : 128),
-                (j == Math.ceil(image.getHeight() / 128d) - 1 ? ((image.getHeight() - 1) % 128) + 1 : 128)));
+        if(!rendered) {
+            rendered = true;
+            canvas.drawImage(0, (j == Math.ceil(image.getHeight() / 128d) - 1 ? 127 -
+                    ((image.getHeight() - 1) % 128) : 0), image.getSubimage(
+                    i * 128, (j == Math.ceil(image.getHeight() / 128d) - 1 ? 0 :
+                            image.getHeight() - 128 - j * 128), (i == Math.ceil(image.getWidth() / 128d) - 1 ?
+                            ((image.getWidth() - 1) % 128) + 1 : 128),
+                    (j == Math.ceil(image.getHeight() / 128d) - 1 ? ((image.getHeight() - 1) % 128) + 1 : 128)));
+        }
     }
 }
