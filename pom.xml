@@ -6,7 +6,7 @@
 
     <groupId>me.matistan05</groupId>
     <artifactId>MinecraftCustomMaps</artifactId>
-    <version>1.2</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging>
 
     <name>MinecraftCustomMaps</name>
