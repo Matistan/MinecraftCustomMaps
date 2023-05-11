@@ -18,7 +18,7 @@ This plugin runs on a Minecraft version 1.16+.
 
 ## Features
 
-- Create a wall with item frames using a command
+- Create a wall with item frames using built-in command
 - Place your map in the bottom left item frame and your image will be displayed
 - Maps show you how big they are and how many item frames they need
 - You can copy the URL of already created map
