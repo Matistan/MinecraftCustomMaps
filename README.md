@@ -2,7 +2,7 @@
 
 ---
 
-View on [Spigot](https://www.spigotmc.org/resources/block-shuffle.109009/)
+View on [Spigot](https://www.spigotmc.org/resources/custom-maps.109576/)
 
 ---
 
