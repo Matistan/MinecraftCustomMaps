@@ -334,11 +334,11 @@ public class CustomMapCommand implements CommandExecutor {
     public static BufferedImage resizeImage(BufferedImage image) {
         BufferedImage outputImage;
         if(image.getHeight() >= image.getWidth()) {
-            Image resultingImage =  image.getScaledInstance(128 * image.getWidth() / image.getHeight(), 128, Image.SCALE_DEFAULT);
+            Image resultingImage =  image.getScaledInstance(128 * image.getWidth() / image.getHeight(), 128, Image.SCALE_SMOOTH);
             outputImage = new BufferedImage(128 * image.getWidth() / image.getHeight(), 128, BufferedImage.TYPE_INT_RGB);
             outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
         } else {
-            Image resultingImage =  image.getScaledInstance(128, 128 * image.getHeight() / image.getWidth(), Image.SCALE_DEFAULT);
+            Image resultingImage =  image.getScaledInstance(128, 128 * image.getHeight() / image.getWidth(), Image.SCALE_SMOOTH);
             outputImage = new BufferedImage(128, 128 * image.getHeight() / image.getWidth(), BufferedImage.TYPE_INT_RGB);
             outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
         }
