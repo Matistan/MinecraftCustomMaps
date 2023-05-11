@@ -59,7 +59,7 @@ public class CustomMapCommand implements CommandExecutor {
             p.sendMessage(ChatColor.YELLOW + "/custommap changeproperties small" + ChatColor.AQUA + " - resizes a held map to 1x1");
             p.sendMessage(ChatColor.YELLOW + "/custommap changeproperties scale <float>" + ChatColor.AQUA + " - changes the size of a held map to be multiplied by a given scale");
             p.sendMessage(ChatColor.YELLOW + "/custommap geturl" + ChatColor.AQUA + " - gives you the URL of the held map");
-            p.sendMessage(ChatColor.YELLOW + "/custommap help " + ChatColor.AQUA + "- shows a list of commands");
+            p.sendMessage(ChatColor.YELLOW + "/custommap help" + ChatColor.AQUA + " - shows a list of commands");
             p.sendMessage(ChatColor.GREEN + "----------------------------------");
             return true;
         }
