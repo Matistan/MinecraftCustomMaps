@@ -29,6 +29,12 @@ public class InteractListener implements Listener {
         this.main = main;
     }
     BufferedImage image;
+    ItemStack map;
+    BlockFace blockFace;
+    UUID uuid;
+    String path;
+    int imageI, imageJ;
+    float imageScale;
     @EventHandler
     public void InteractEvent(PlayerInteractAtEntityEvent e) {
         if(!(e.getRightClicked() instanceof ItemFrame)) {return;}
@@ -39,9 +45,9 @@ public class InteractListener implements Listener {
         if(!item.hasItemMeta()) {return;}
         PersistentDataContainer container = item.getItemMeta().getPersistentDataContainer();
         if(!container.has(new NamespacedKey(main, "path"), PersistentDataType.STRING)) {return;}
-        String path = container.get(new NamespacedKey(main, "path"), PersistentDataType.STRING);
+        path = container.get(new NamespacedKey(main, "path"), PersistentDataType.STRING);
         String mode = container.get(new NamespacedKey(main, "mode"), PersistentDataType.STRING);
-        float scaleMode = 0;
+        float scaleMode = 1;
         if(container.has(new NamespacedKey(main, "scalemode"), PersistentDataType.FLOAT)) {
             scaleMode = container.get(new NamespacedKey(main, "scalemode"), PersistentDataType.FLOAT);
         }
@@ -86,13 +92,14 @@ public class InteractListener implements Listener {
                     break;
                 case "small":
                     image = resizeImage(image);
+                    scaleMode = 0;
                     break;
             }
         } catch (Exception ignored) {}
-        UUID uuid = UUID.randomUUID();
+        uuid = UUID.randomUUID();
         for(int i = 0; i < (int) Math.ceil(image.getWidth() / 128d); i++) {
             for(int j = 0; j < (int) Math.ceil(image.getHeight() / 128d); j++) {
-                ItemStack map = new ItemStack(Material.FILLED_MAP);
+                map = new ItemStack(Material.FILLED_MAP);
                 MapMeta mapMeta = (MapMeta) map.getItemMeta();
                 MapView mapView = Bukkit.createMap(e.getPlayer().getWorld());
                 mapView.getRenderers().clear();
@@ -100,48 +107,52 @@ public class InteractListener implements Listener {
                 mapView.addRenderer(customMapRenderer);
                 mapMeta.setMapView(mapView);
                 map.setItemMeta(mapMeta);
+                blockFace = itemFrame.getFacing();
+                imageI = i;
+                imageJ = j;
+                imageScale = scaleMode;
                 switch (itemFrame.getFacing()) {
                     case SOUTH:
-                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getBlockX() + i, location.getBlockY() + j, location.getBlockZ()), Rotation.NONE, itemFrame.getFacing(), uuid);
+                        placeMap(new Location(e.getPlayer().getWorld(), location.getBlockX() + i, location.getBlockY() + j, location.getBlockZ()), Rotation.NONE);
                         break;
                     case NORTH:
-                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getBlockX() - i, location.getBlockY() + j, location.getBlockZ()), Rotation.NONE, itemFrame.getFacing(), uuid);
+                        placeMap(new Location(e.getPlayer().getWorld(), location.getBlockX() - i, location.getBlockY() + j, location.getBlockZ()), Rotation.NONE);
                         break;
                     case EAST:
-                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getBlockX(), location.getBlockY() + j, location.getBlockZ() - i), Rotation.NONE, itemFrame.getFacing(), uuid);
+                        placeMap(new Location(e.getPlayer().getWorld(), location.getBlockX(), location.getBlockY() + j, location.getBlockZ() - i), Rotation.NONE);
                         break;
                     case WEST:
-                        placeMap(map, new Location(e.getPlayer().getWorld(), location.getBlockX(), location.getBlockY() + j, location.getBlockZ() + i), Rotation.NONE, itemFrame.getFacing(), uuid);
+                        placeMap(new Location(e.getPlayer().getWorld(), location.getBlockX(), location.getBlockY() + j, location.getBlockZ() + i), Rotation.NONE);
                         break;
                     case UP:
                         switch (e.getPlayer().getFacing()) {
                             case NORTH:
-                                placeMap(map, new Location(e.getPlayer().getWorld(), location.getBlockX() + i, location.getBlockY(), location.getBlockZ() - j), Rotation.NONE, itemFrame.getFacing(), uuid);
+                                placeMap(new Location(e.getPlayer().getWorld(), location.getBlockX() + i, location.getBlockY(), location.getBlockZ() - j), Rotation.NONE);
                                 break;
                             case SOUTH:
-                                placeMap(map, new Location(e.getPlayer().getWorld(), location.getBlockX() - i, location.getBlockY(), location.getBlockZ() + j), Rotation.CLOCKWISE, itemFrame.getFacing(), uuid);
+                                placeMap(new Location(e.getPlayer().getWorld(), location.getBlockX() - i, location.getBlockY(), location.getBlockZ() + j), Rotation.CLOCKWISE);
                                 break;
                             case EAST:
-                                placeMap(map, new Location(e.getPlayer().getWorld(), location.getBlockX() + j, location.getBlockY(), location.getBlockZ() + i), Rotation.CLOCKWISE_45, itemFrame.getFacing(), uuid);
+                                placeMap(new Location(e.getPlayer().getWorld(), location.getBlockX() + j, location.getBlockY(), location.getBlockZ() + i), Rotation.CLOCKWISE_45);
                                 break;
                             case WEST:
-                                placeMap(map, new Location(e.getPlayer().getWorld(), location.getBlockX() - j, location.getBlockY(), location.getBlockZ() - i), Rotation.CLOCKWISE_135, itemFrame.getFacing(), uuid);
+                                placeMap(new Location(e.getPlayer().getWorld(), location.getBlockX() - j, location.getBlockY(), location.getBlockZ() - i), Rotation.CLOCKWISE_135);
                                 break;
                         }
                         break;
                     case DOWN:
                         switch (e.getPlayer().getFacing()) {
                             case NORTH:
-                                placeMap(map, new Location(e.getPlayer().getWorld(), location.getBlockX() + i, location.getBlockY(), location.getBlockZ() + j), Rotation.NONE, itemFrame.getFacing(), uuid);
+                                placeMap(new Location(e.getPlayer().getWorld(), location.getBlockX() + i, location.getBlockY(), location.getBlockZ() + j), Rotation.NONE);
                                 break;
                             case SOUTH:
-                                placeMap(map, new Location(e.getPlayer().getWorld(), location.getBlockX() - i, location.getBlockY(), location.getBlockZ() - j), Rotation.CLOCKWISE, itemFrame.getFacing(), uuid);
+                                placeMap(new Location(e.getPlayer().getWorld(), location.getBlockX() - i, location.getBlockY(), location.getBlockZ() - j), Rotation.CLOCKWISE);
                                 break;
                             case EAST:
-                                placeMap(map, new Location(e.getPlayer().getWorld(), location.getBlockX() - j, location.getBlockY(), location.getBlockZ() + i), Rotation.CLOCKWISE_135, itemFrame.getFacing(), uuid);
+                                placeMap(new Location(e.getPlayer().getWorld(), location.getBlockX() - j, location.getBlockY(), location.getBlockZ() + i), Rotation.CLOCKWISE_135);
                                 break;
                             case WEST:
-                                placeMap(map, new Location(e.getPlayer().getWorld(), location.getBlockX() + j, location.getBlockY(), location.getBlockZ() - i), Rotation.CLOCKWISE_45, itemFrame.getFacing(), uuid);
+                                placeMap(new Location(e.getPlayer().getWorld(), location.getBlockX() + j, location.getBlockY(), location.getBlockZ() - i), Rotation.CLOCKWISE_45);
                                 break;
                         }
                         break;
@@ -158,6 +169,10 @@ public class InteractListener implements Listener {
         if(!container.has(new NamespacedKey(main, "uuid"), PersistentDataType.STRING)) {return;}
         if(!((Player)e.getDamager()).isSneaking()) {
             firstItemFrame.getPersistentDataContainer().remove(new NamespacedKey(main, "uuid"));
+            firstItemFrame.getPersistentDataContainer().remove(new NamespacedKey(main, "path"));
+            firstItemFrame.getPersistentDataContainer().remove(new NamespacedKey(main, "imagei"));
+            firstItemFrame.getPersistentDataContainer().remove(new NamespacedKey(main, "imagej"));
+            firstItemFrame.getPersistentDataContainer().remove(new NamespacedKey(main, "imagescale"));
             return;
         }
         UUID firstUuid = UUID.fromString(container.get(new NamespacedKey(main, "uuid"), PersistentDataType.STRING));
@@ -169,15 +184,23 @@ public class InteractListener implements Listener {
             if(uuid.equals(firstUuid)) {
                 itemFrame.setItem(new ItemStack(Material.AIR));
                 itemFrame.getPersistentDataContainer().remove(new NamespacedKey(main, "uuid"));
+                itemFrame.getPersistentDataContainer().remove(new NamespacedKey(main, "path"));
+                itemFrame.getPersistentDataContainer().remove(new NamespacedKey(main, "imagei"));
+                itemFrame.getPersistentDataContainer().remove(new NamespacedKey(main, "imagej"));
+                itemFrame.getPersistentDataContainer().remove(new NamespacedKey(main, "imagescale"));
             }
         }
     }
-    public void placeMap(ItemStack map, Location location, Rotation rotation, BlockFace blockFace, UUID uuid) {
+    public void placeMap(Location location, Rotation rotation) {
         for(Entity entity : location.getWorld().getEntities()) {
             if(entity.getLocation().getBlockX() == location.getX() && entity.getLocation().getBlockY() == location.getY() &&
                     entity.getLocation().getBlockZ() == location.getZ() && entity instanceof ItemFrame && entity.getFacing().equals(blockFace)) {
                 ItemFrame itemFrame = (ItemFrame) entity;
                 itemFrame.getPersistentDataContainer().set(new NamespacedKey(main, "uuid"), PersistentDataType.STRING, uuid.toString());
+                itemFrame.getPersistentDataContainer().set(new NamespacedKey(main, "path"), PersistentDataType.STRING, path);
+                itemFrame.getPersistentDataContainer().set(new NamespacedKey(main, "imagei"), PersistentDataType.INTEGER, imageI);
+                itemFrame.getPersistentDataContainer().set(new NamespacedKey(main, "imagej"), PersistentDataType.INTEGER, imageJ);
+                itemFrame.getPersistentDataContainer().set(new NamespacedKey(main, "imagescale"), PersistentDataType.FLOAT, imageScale);
                 itemFrame.setItem(map);
                 itemFrame.setRotation(rotation);
                 return;
