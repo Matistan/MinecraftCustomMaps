@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import static me.matistan05.minecraftcustommaps.CustomMapCommand.resizeImage;
 
@@ -25,6 +26,7 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
         Bukkit.getPluginCommand("custommap").setExecutor(new CustomMapCommand(this));
         Bukkit.getPluginCommand("custommap").setTabCompleter(new CustomMapCompleter());
         Bukkit.getPluginManager().registerEvents(new InteractListener(this), this);

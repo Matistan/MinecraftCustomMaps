@@ -37,6 +37,10 @@ public class CustomMapCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!(sender instanceof Player)) {return true;}
         Player p = (Player) sender;
+        if(!p.hasPermission("custommaps.custommap") && main.getConfig().getBoolean("usePermissions")) {
+            p.sendMessage(ChatColor.RED + "You don't have permission to use this command.");
+            return true;
+        }
         if(args.length == 0) {
             p.sendMessage(ChatColor.RED + "You must type an argument. For help, type: /custommap help");
             return true;

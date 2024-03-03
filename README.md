@@ -38,4 +38,12 @@ This plugin runs on a Minecraft version 1.16+.
 - `/custommap geturl` - gives you the URL of the held map
 - `/custommap help` - shows a list of commands
 
+## Configuration Options
+
+Edit the `plugins/MinecraftCustomMaps/config.yml` file to change the following options:
+
+| Key            | Description                                                              | Type    | recommended                                                   |
+|----------------|--------------------------------------------------------------------------|---------|---------------------------------------------------------------|
+| usePermissions | Set to true to require users to have permission to use certain commands. | boolean | false; true if you don't trust the people you're playing with |
+
 ### Made by Matistan

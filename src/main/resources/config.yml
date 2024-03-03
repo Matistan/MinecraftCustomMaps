@@ -1,0 +1,10 @@
+# *********************************************************
+# Thank you for using this plugin! <3
+# Author: Matistan
+# If you enjoy this plugin, please rate it on spigotmc.org:
+# https://www.spigotmc.org/resources/custom-maps.109576/
+# *********************************************************
+
+# Set to true to enable permission checks.
+## Note: This feature needs a permissions plugin (such as LuckPerms) to work.
+usePermissions: false
