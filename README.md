@@ -46,4 +46,17 @@ Edit the `plugins/MinecraftCustomMaps/config.yml` file to change the following o
 |----------------|--------------------------------------------------------------------------|---------|---------------------------------------------------------------|
 | usePermissions | Set to true to require users to have permission to use certain commands. | boolean | false; true if you don't trust the people you're playing with |
 
+## Permissions
+
+If `usePermissions` is set to `true` in the `config.yml` file, players without ops will need the following permissions to use the commands:
+
+| Permission                  | Description                                                         |
+|-----------------------------|---------------------------------------------------------------------|
+| custommaps.custommap        | Allows the player to use all `/custommap` commands.                 |
+| custommaps.give             | Allows the player to use the `/custommap give` command.             |
+| custommaps.fillitemframes   | Allows the player to use the `/custommap fillitemframes` command.   |
+| custommaps.changeproperties | Allows the player to use the `/custommap changeproperties` command. |
+| custommaps.geturl           | Allows the player to use the `/custommap geturl` command.           |
+| custommaps.help             | Allows the player to use the `/custommap help` command.             |
+
 ### Made by Matistan
