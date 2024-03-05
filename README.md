@@ -2,7 +2,8 @@
 
 ---
 
-View on [Spigot](https://www.spigotmc.org/resources/custom-maps.109576/)
+View on [Spigot](https://www.spigotmc.org/resources/custom-maps.109576/) •
+Download [here](https://github.com/Matistan/MinecraftCustomMaps/releases)
 
 ---
 
