@@ -7,4 +7,11 @@ commands:
     description: custom map
 permissions:
     custommaps.custommap:
-        description: Allows the player to use /custommap command
+        description: Allows the player to use all /custommap commands
+        children:
+          custommaps.give: true
+          custommaps.fillitemframes: true
+          custommaps.changeproperties: true
+          custommaps.geturl: true
+          custommaps.help: true
+

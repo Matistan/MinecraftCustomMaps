@@ -37,15 +37,15 @@ public class CustomMapCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!(sender instanceof Player)) {return true;}
         Player p = (Player) sender;
-        if(!p.hasPermission("custommaps.custommap") && main.getConfig().getBoolean("usePermissions")) {
-            p.sendMessage(ChatColor.RED + "You don't have permission to use this command.");
-            return true;
-        }
         if(args.length == 0) {
             p.sendMessage(ChatColor.RED + "You must type an argument. For help, type: /custommap help");
             return true;
         }
         if (args[0].equals("help")) {
+            if(!p.hasPermission("custommaps.help") && main.getConfig().getBoolean("usePermissions")) {
+                p.sendMessage(ChatColor.RED + "You don't have permission to use this command.");
+                return true;
+            }
             if (args.length != 1) {
                 p.sendMessage(ChatColor.RED + "Wrong usage of this command. For help, type: /custommap help");
                 return true;
@@ -68,6 +68,10 @@ public class CustomMapCommand implements CommandExecutor {
             return true;
         }
         if(args[0].equals("give")) {
+            if(!p.hasPermission("custommaps.give") && main.getConfig().getBoolean("usePermissions")) {
+                p.sendMessage(ChatColor.RED + "You don't have permission to use this command.");
+                return true;
+            }
             if(args.length == 1 || args.length > 4) {
                 p.sendMessage(ChatColor.RED + "Wrong usage of this command. For help, type: /custommap help");
                 return true;
@@ -167,6 +171,10 @@ public class CustomMapCommand implements CommandExecutor {
             return true;
         }
         if(args[0].equals("fillitemframes")) {
+            if(!p.hasPermission("custommaps.fillitemframes") && main.getConfig().getBoolean("usePermissions")) {
+                p.sendMessage(ChatColor.RED + "You don't have permission to use this command.");
+                return true;
+            }
             if(args.length != 7 && args.length != 8) {
                 p.sendMessage(ChatColor.RED + "Wrong usage of this command. For help, type: /custommap help");
                 return true;
@@ -243,6 +251,10 @@ public class CustomMapCommand implements CommandExecutor {
             return true;
         }
         if(args[0].equals("geturl")) {
+            if(!p.hasPermission("custommaps.geturl") && main.getConfig().getBoolean("usePermissions")) {
+                p.sendMessage(ChatColor.RED + "You don't have permission to use this command.");
+                return true;
+            }
             if(args.length > 1) {
                 p.sendMessage(ChatColor.RED + "Wrong usage of this command. For help, type: /custommap help");
                 return true;
@@ -265,6 +277,10 @@ public class CustomMapCommand implements CommandExecutor {
             return true;
         }
         if(args[0].equals("changeproperties")) {
+            if(!p.hasPermission("custommaps.changeproperties") && main.getConfig().getBoolean("usePermissions")) {
+                p.sendMessage(ChatColor.RED + "You don't have permission to use this command.");
+                return true;
+            }
             if(args.length == 1 || args.length > 3) {
                 p.sendMessage(ChatColor.RED + "Wrong usage of this command. For help, type: /custommap help");
                 return true;
