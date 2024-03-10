@@ -13,5 +13,6 @@ permissions:
           custommaps.fillitemframes: true
           custommaps.changeproperties: true
           custommaps.geturl: true
+          custommaps.fix: true
           custommaps.help: true
 

@@ -27,6 +27,9 @@ public class CustomMapCompleter implements TabCompleter {
             if(startsWith("geturl", args[0])) {
                 list.add("geturl");
             }
+            if(startsWith("fix", args[0])) {
+                list.add("fix");
+            }
             if(startsWith("help", args[0])) {
                 list.add("help");
             }

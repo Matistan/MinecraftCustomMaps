@@ -37,6 +37,7 @@ This plugin runs on a Minecraft version 1.16+.
 - `/custommap changeproperties small` - resizes a held map to 1x1
 - `/custommap changeproperties scale <float>` - changes the size of a held map to be multiplied by a given scale
 - `/custommap geturl` - gives you the URL of the held map
+- `/custommap fix` - fixes the preview of the held map (usually it breaks after server restart)
 - `/custommap help` - shows a list of commands
 
 ## Configuration Options
@@ -58,6 +59,7 @@ If `usePermissions` is set to `true` in the `config.yml` file, players without o
 | custommaps.fillitemframes   | Allows the player to use the `/custommap fillitemframes` command.   |
 | custommaps.changeproperties | Allows the player to use the `/custommap changeproperties` command. |
 | custommaps.geturl           | Allows the player to use the `/custommap geturl` command.           |
+| custommaps.fix              | Allows the player to use the `/custommap fix` command.              |
 | custommaps.help             | Allows the player to use the `/custommap help` command.             |
 
 ### Made by Matistan

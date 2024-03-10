@@ -63,6 +63,7 @@ public class CustomMapCommand implements CommandExecutor {
             p.sendMessage(ChatColor.YELLOW + "/custommap changeproperties small" + ChatColor.AQUA + " - resizes a held map to 1x1");
             p.sendMessage(ChatColor.YELLOW + "/custommap changeproperties scale <float>" + ChatColor.AQUA + " - changes the size of a held map to be multiplied by a given scale");
             p.sendMessage(ChatColor.YELLOW + "/custommap geturl" + ChatColor.AQUA + " - gives you the URL of the held map");
+            p.sendMessage(ChatColor.YELLOW + "/custommap fix" + ChatColor.AQUA + " - fixes the preview of the held map (usually it breaks after server restart)");
             p.sendMessage(ChatColor.YELLOW + "/custommap help" + ChatColor.AQUA + " - shows a list of commands");
             p.sendMessage(ChatColor.GREEN + "----------------------------------");
             return true;
@@ -346,6 +347,53 @@ public class CustomMapCommand implements CommandExecutor {
             itemMeta.setLore(lore);
             p.getInventory().getItemInMainHand().setItemMeta(itemMeta);
             p.sendMessage(ChatColor.GREEN + "Successfully changed the property of this map!");
+            return true;
+        }
+        if(args[0].equals("fix")) {
+            if(!p.hasPermission("custommaps.fix") && main.getConfig().getBoolean("usePermissions")) {
+            p.sendMessage(ChatColor.RED + "You don't have permission to use this command.");
+            return true;
+        }
+            if(args.length != 1) {
+                p.sendMessage(ChatColor.RED + "Wrong usage of this command. For help, type: /custommap help");
+                return true;
+            }
+            if(!p.getInventory().getItemInMainHand().hasItemMeta()) {
+                p.sendMessage(ChatColor.RED + "You're not holding a custom map. For help, type: /custommap help");
+                return true;
+            }
+            ItemStack map = p.getInventory().getItemInMainHand();
+            ItemMeta itemMeta = map.getItemMeta();
+            PersistentDataContainer container = itemMeta.getPersistentDataContainer();
+            if(!container.has(new NamespacedKey(main, "path"), PersistentDataType.STRING)) {
+                p.sendMessage(ChatColor.RED + "You're not holding a custom map. For help, type: /custommap help");
+                return true;
+            }
+            MapMeta mapMeta = (MapMeta) map.getItemMeta();
+            MapView mapView = Bukkit.createMap(p.getWorld());
+            BufferedImage resizedImage;
+            try {
+                resizedImage = resizeImage(ImageIO.read(new URL(container.get(new NamespacedKey(main, "path"), PersistentDataType.STRING))));
+            } catch (Exception ignored) {
+                return true;
+            }
+            int offsetX = 64 - resizedImage.getWidth() / 2;
+            int offsetY = 64 - resizedImage.getHeight() / 2;
+            for(MapRenderer mapRenderer : mapView.getRenderers()) {
+                mapView.removeRenderer(mapRenderer);
+            }
+            mapView.addRenderer(new MapRenderer() {
+                boolean rendered = false;
+                @Override
+                public void render(MapView renderMap, MapCanvas canvas, Player player) {
+                    if(!rendered) {
+                        rendered = true;
+                        canvas.drawImage(offsetX, offsetY, resizedImage);
+                    }
+                }
+            });
+            mapMeta.setMapView(mapView);
+            map.setItemMeta(mapMeta);
             return true;
         }
         p.sendMessage(ChatColor.RED + "Wrong usage of this command. For help, type: /custommap help");
