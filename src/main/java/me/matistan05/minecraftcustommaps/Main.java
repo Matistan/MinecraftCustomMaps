@@ -30,6 +30,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginCommand("custommap").setExecutor(new CustomMapCommand(this));
         Bukkit.getPluginCommand("custommap").setTabCompleter(new CustomMapCompleter());
         Bukkit.getPluginManager().registerEvents(new InteractListener(this), this);
+        new Metrics(this, 21888);
         System.out.println("*********************************************************\n" +
                 "Thank you for using this plugin! <3\n" +
                 "Author: Matistan\n" +
