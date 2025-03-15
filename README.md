@@ -44,9 +44,9 @@ This plugin runs on a Minecraft version 1.16+.
 
 Edit the `plugins/MinecraftCustomMaps/config.yml` file to change the following options:
 
-| Key            | Description                                                              | Type    | recommended                                                   |
-|----------------|--------------------------------------------------------------------------|---------|---------------------------------------------------------------|
-| usePermissions | Set to true to require users to have permission to use certain commands. | boolean | false; true if you don't trust the people you're playing with |
+| Key            | Description                                                              | Type    | recommended                                             |
+|----------------|--------------------------------------------------------------------------|---------|---------------------------------------------------------|
+| usePermissions | Set to true to require users to have permission to use certain commands. | boolean | true; false if you trust the people you're playing with |
 
 ## Permissions
 
